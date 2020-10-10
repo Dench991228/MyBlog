@@ -1,9 +1,9 @@
 <template>
-    <div style="background:#f7f7f7;border:1px solid #e8e8e8">
+    <div style="border:1px solid #f7f7f7">
         <div 
             v-for="(item,index) in article_info.titles" 
             :key="index" 
-            style="text-align:left;padding:1ex 1ex 1ex 1ex"
+            style="text-align:left;padding:1ex 1ex 1ex 1ex;border-bottom:1px solid #f0f0f0"
             class="article_item"
         >
             <!--文章标题-->
