@@ -11,11 +11,11 @@
             v-model="selected" 
             mode="horizontal"
         >
-            <a-menu-item key="homepage" style="font-size:110%">
+            <a-menu-item key="homepage" style="font-size:120%">
                 <a-icon type="bank" style="vertical-align:middle"/>
-                <span style="vertical-align:middle">博客</span>
+                <span style="vertical-align:middle;">博客</span>
             </a-menu-item>
-            <a-menu-item key="question" style="font-size:110%">
+            <a-menu-item key="question" style="font-size:120%">
                 <a-icon type="question" style="vertical-align:middle"/>
                 <span style="vertical-align:middle">问答</span>
             </a-menu-item>
