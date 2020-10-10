@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align:center;border-bottom:1px solid #ffffff">
+    <div style="text-align:center;border-bottom:1px solid #f7f7f7">
         <!--logo区域-->
         <h1 style="margin:auto auto auto auto;display:inline-block;width:15%;vertical-align:middle">
             <span style="color:#aa0000">Dench&nbsp;</span>
