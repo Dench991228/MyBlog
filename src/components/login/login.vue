@@ -9,11 +9,11 @@
                 ref="loginform"
                 :model="login_data" 
                 :rules="rules"
-                layout="horizontal" 
+                layout="vertical" 
                 style="text-align:left;width:80%;margin:auto auto auto auto"
             >
                 <!--输入邮箱或者手机-->
-                <a-form-model-item ref="username" label="邮箱或手机号" prop="username" >
+                <a-form-model-item ref="username" label="邮箱" prop="username" >
                     <a-input style="width:95%;margin-left:2.5%" v-model="login_data.username"/>
                 </a-form-model-item>
                 <!--输入密码-->
@@ -41,25 +41,29 @@
 <script>
 export default {
     name:"login",
+    created(){
+        console.log("Autologin?:"+window.localStorage.getItem("DenchBlogAutoLogin"))
+        console.log("Remember?:"+window.localStorage.getItem("DenchBlogRemember"))
+    },
     data(){
         return {
             /*the user id of the user */
             UID:-1,
             /*whether to login automatically next time */
-            autologin:false,
+            autologin:window.localStorage.getItem("DenchBlogAutoLogin")=="true",
             /*whether to remember the password of user */
-            remember_password:false,
+            remember_password:window.localStorage.getItem("DenchBlogRemember")=="true",
             /*data of the form */
             login_data:{
-                username:"",
-                password:""
+                username:window.localStorage.getItem("DenchBlogEmail"),
+                password:window.localStorage.getItem("DenchBlogPassword")
             },
             rules:{
                 username:[
-                    {required:true, message:'请输入您的邮箱或者手机',trigger:'blur'}
+                    {required:true, message:'请输入您的邮箱',trigger:'blur'}
                 ],
                 password:[
-                    {required:true, message:'请输入您的邮箱或者手机', trigger:'blur'},
+                    {required:true, message:'请输入您的密码', trigger:'blur'},
                 ]
             }
         }
@@ -82,16 +86,19 @@ export default {
                             window.sessionStorage.setItem("DenchBlogUID", response.data.UID);
                             window.sessionStorage.setItem("DenchBlogUsername", response.data.name);
                             window.sessionStorage.setItem("DenchBlogOnline", true);
+                            window.localStorage.setItem("DenchBlogRemember", this.remember_password);
                             if(this.remember_password){// 需要记住密码
-                                window.localStorage.setItem("DenchBlogLoginName", this.login_data.username);
+                                window.localStorage.setItem("DenchBlogEmail", this.login_data.username);
                                 window.localStorage.setItem("DenchBlogPassword", this.login_data.password);
                             }
-                            if(this.autologin){// 需要自动登录
-                                window.localStorage.setItem("DenchBlogAutoLogin", true);
+                            else{
+                                window.localStorage.setItem("DenchBlogEmail", '');
+                                window.localStorage.setItem("DenchBlogPassword", '');
                             }
+                            window.localStorage.setItem("DenchBlogAutoLogin", this.autologin);
                         }
                         else{
-                            this.$message.error('登陆失败，邮箱/手机号或密码错误')
+                            this.$message.error('登陆失败，邮箱或密码错误')
                         }
                     }).catch(error=>{
                         this.$message.error("登陆失败，服务器好像有点问题")
